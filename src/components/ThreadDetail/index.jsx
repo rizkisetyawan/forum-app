@@ -1,6 +1,7 @@
 /* eslint-disable react/no-danger */
 import {
   ActionIcon,
+  Anchor,
   Avatar,
   Badge,
   Box,
@@ -11,62 +12,57 @@ import {
   Title,
   TypographyStylesProvider,
 } from '@mantine/core';
-import { IconMessage2, IconThumbDown, IconThumbUp } from '@tabler/icons-react';
+import { IconThumbDown, IconThumbUp } from '@tabler/icons-react';
 import moment from 'moment';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import ThreadComments from '../ThreadComments';
+import ThreadCommentInput from '../ThreadCommentInput';
 
-function ThreadItem({
+function ThreadDetail({
   id,
   title,
   body,
   category,
   upVotesBy,
   downVotesBy,
-  totalComments,
   createdAt,
-  user,
+  owner,
   authUser,
+  comments,
   onLike,
   onDislike,
 }) {
   const navigate = useNavigate();
 
-  const handleDetailThread = () => {
-    navigate(`/threads/${id}`);
+  const handleLogin = () => {
+    navigate('/login');
   };
 
   const actions = [
     {
       actionTitle: 'like',
       icon: IconThumbUp,
-      count: upVotesBy.length,
+      count: upVotesBy?.length,
       isClicked: upVotesBy.includes(authUser),
       handleClick: () => onLike(id),
     },
     {
       actionTitle: 'dislike',
       icon: IconThumbDown,
-      count: downVotesBy.length,
+      count: downVotesBy?.length,
       isClicked: downVotesBy.includes(authUser),
       handleClick: () => onDislike(id),
-    },
-    {
-      actionTitle: 'comment',
-      icon: IconMessage2,
-      count: totalComments,
-      isClicked: false,
-      handleClick: handleDetailThread
     },
   ];
 
   return (
     <Box mb={16}>
       <Flex align="center" gap={12} mb={8}>
-        <Avatar src={user.avatar} size="md" color="cyan" radius="xl" />
+        <Avatar src={owner.avatar} size="md" color="cyan" radius="xl" />
         <Box>
-          <Text>{user.name}</Text>
+          <Text>{owner.name}</Text>
           <Text fz="sm" c="dimmed">
             {moment(createdAt).fromNow()}
           </Text>
@@ -80,11 +76,11 @@ function ThreadItem({
           {`#${category}`}
         </Badge>
       </Flex>
-      <Box onClick={handleDetailThread} sx={{ cursor: 'pointer' }}>
-        <Title fz={18} order={3} mb={8}>
+      <Box mb={16}>
+        <Title fz={21} order={3} mb={8}>
           {title}
         </Title>
-        <Text lineClamp={4}>
+        <Text>
           <TypographyStylesProvider>
             <div dangerouslySetInnerHTML={{ __html: body }} />
           </TypographyStylesProvider>
@@ -96,7 +92,11 @@ function ThreadItem({
             icon: Icon, actionTitle, count, isClicked, handleClick
           }) => (
             <Flex align="center" gap={4} key={actionTitle}>
-              <ActionIcon color={isClicked ? 'blue' : 'gray'} radius="xl" onClick={handleClick}>
+              <ActionIcon
+                color={isClicked ? 'blue' : 'gray'}
+                radius="xl"
+                onClick={handleClick}
+              >
                 <Icon size={20} />
               </ActionIcon>
               <Text c="dimmed" fz="sm">
@@ -106,40 +106,51 @@ function ThreadItem({
           )
         )}
       </Group>
+      <Box mb={24}>
+        <Title fz={18} order={3} mb={8}>
+          Beri komentar
+        </Title>
+        { authUser ? (
+          <ThreadCommentInput />
+        ) : (
+          <Group spacing="xs">
+            <Anchor component="button" type="button" weight={800} onClick={handleLogin}>Login</Anchor>
+            <Text>untuk memberi komentar</Text>
+          </Group>
+        )}
+      </Box>
+      <ThreadComments authUser={authUser} comments={comments} />
       <Divider size="xs" />
     </Box>
   );
 }
 
-const userShape = {
+const owner = {
   name: PropTypes.string.isRequired,
   avatar: PropTypes.string.isRequired,
 };
 
-const threadItemShape = {
+const threadDetailShape = {
   id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   body: PropTypes.string.isRequired,
   category: PropTypes.string.isRequired,
   upVotesBy: PropTypes.arrayOf(PropTypes.string).isRequired,
   downVotesBy: PropTypes.arrayOf(PropTypes.string).isRequired,
-  totalComments: PropTypes.number.isRequired,
   createdAt: PropTypes.string.isRequired,
-  user: PropTypes.shape(userShape).isRequired,
+  owner: PropTypes.shape(owner).isRequired,
   authUser: PropTypes.string.isRequired,
 };
 
-ThreadItem.propTypes = {
-  ...threadItemShape,
+ThreadDetail.propTypes = {
+  ...threadDetailShape,
   onLike: PropTypes.func,
   onDislike: PropTypes.func,
 };
 
-ThreadItem.defaultProps = {
-  onLike: null,
-  onDislike: null,
+ThreadDetail.defaultProps = {
+  onLike: () => {},
+  onDislike: () => {},
 };
 
-export { threadItemShape };
-
-export default ThreadItem;
+export default ThreadDetail;

@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types */
 import {
   Box,
-  Flex,
   Navbar,
   Stack,
   Tooltip,
@@ -101,11 +100,12 @@ function NavbarComponent() {
   };
 
   return (
-    <Flex>
+    <>
       <Navbar
         height="100vh"
         width={{ base: 80 }}
         p="sm"
+        pos="fixed"
         sx={(theme) => ({
           backgroundColor: theme.fn.variant({
             variant: 'filled',
@@ -128,10 +128,10 @@ function NavbarComponent() {
           </Stack>
         </Navbar.Section>
       </Navbar>
-      <Box sx={{ flex: 1 }}>
+      <Box ml={80} sx={{ flex: 1 }}>
         <Outlet />
       </Box>
-    </Flex>
+    </>
   );
 }
 

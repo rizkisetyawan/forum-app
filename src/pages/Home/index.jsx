@@ -20,11 +20,11 @@ function Home() {
     dispatch(asyncPopulateUsersAndThreads());
   }, [dispatch]);
 
-  const onLike = (id) => {
+  const handleLike = (id) => {
     dispatch(asyncToogleLikeThread(id));
   };
 
-  const onDislike = (id) => {
+  const handleDislike = (id) => {
     dispatch(asyncToogleDislikeThread(id));
   };
 
@@ -36,7 +36,7 @@ function Home() {
 
   return (
     <Container px={32}>
-      <ThreadsList threads={threadList} onLike={onLike} onDislike={onDislike} />
+      <ThreadsList threads={threadList} onLike={handleLike} onDislike={handleDislike} />
     </Container>
   );
 }
