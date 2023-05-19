@@ -25,7 +25,7 @@ function Leaderboards() {
       <td>{user.name}</td>
       <td>{user.email}</td>
       <td>
-        <Text fz={20} c="blue" fw={700}>
+        <Text fz={18} c="blue" fw={700}>
           {score}
         </Text>
       </td>

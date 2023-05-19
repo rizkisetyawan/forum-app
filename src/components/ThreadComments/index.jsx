@@ -1,5 +1,7 @@
-/* eslint-disable react/prop-types */
 /* eslint-disable react/no-danger */
+import React from 'react';
+import PropTypes from 'prop-types';
+import moment from 'moment';
 import {
   ActionIcon,
   Avatar,
@@ -11,8 +13,6 @@ import {
   TypographyStylesProvider,
 } from '@mantine/core';
 import { IconThumbDown, IconThumbUp } from '@tabler/icons-react';
-import moment from 'moment';
-import React from 'react';
 import { useDispatch } from 'react-redux';
 import {
   asyncToogleDislikeComment,
@@ -99,5 +99,22 @@ function ThreadComments({ authUser, comments }) {
     </Box>
   );
 }
+
+const commentsShape = PropTypes.shape({
+  id: PropTypes.string.isRequired,
+  owner: PropTypes.shape({
+    avatar: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+  }).isRequired,
+  createdAt: PropTypes.instanceOf(Date).isRequired,
+  content: PropTypes.string.isRequired,
+  upVotesBy: PropTypes.arrayOf(PropTypes.string).isRequired,
+  downVotesBy: PropTypes.arrayOf(PropTypes.string).isRequired,
+});
+
+ThreadComments.propTypes = {
+  authUser: PropTypes.string.isRequired,
+  comments: PropTypes.arrayOf(commentsShape).isRequired,
+};
 
 export default React.memo(ThreadComments);
