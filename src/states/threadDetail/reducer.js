@@ -1,6 +1,6 @@
 import { ActionType } from './action';
 
-function toggleVote(votes, userId) {
+function addVote(votes, userId) {
   return votes.includes(userId)
     ? votes.filter((id) => id !== userId)
     : votes.concat(userId);
@@ -22,7 +22,7 @@ function threadDetailReducer(threadDetail = null, action = {}) {
         comments: threadDetail.comments.map((comment) => (comment.id === action.payload.commentId
           ? {
             ...comment,
-            upVotesBy: toggleVote(comment.upVotesBy, action.payload.userId),
+            upVotesBy: addVote(comment.upVotesBy, action.payload.userId),
             downVotesBy: removeVote(
               comment.downVotesBy,
               action.payload.userId
@@ -36,13 +36,28 @@ function threadDetailReducer(threadDetail = null, action = {}) {
         comments: threadDetail.comments.map((comment) => (comment.id === action.payload.commentId
           ? {
             ...comment,
-            downVotesBy: toggleVote(comment.downVotesBy, action.payload.userId),
-            upVotesBy: removeVote(
-              comment.upVotesBy,
+            downVotesBy: addVote(
+              comment.downVotesBy,
               action.payload.userId
             ),
+            upVotesBy: removeVote(comment.upVotesBy, action.payload.userId),
           }
           : comment)),
+      };
+    case ActionType.TOGGLE_LIKE_DETAIL:
+      return {
+        ...threadDetail,
+        upVotesBy: addVote(threadDetail.upVotesBy, action.payload.userId),
+        downVotesBy: removeVote(
+          threadDetail.downVotesBy,
+          action.payload.userId
+        ),
+      };
+    case ActionType.TOGGLE_DISLIKE_DETAIL:
+      return {
+        ...threadDetail,
+        downVotesBy: addVote(threadDetail.downVotesBy, action.payload.userId),
+        upVotesBy: removeVote(threadDetail.upVotesBy, action.payload.userId),
       };
     default:
       return threadDetail;

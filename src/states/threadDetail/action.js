@@ -6,6 +6,8 @@ const ActionType = {
   CLEAR_THREAD_DETAIL: 'CLEAR_THREAD_DETAIL',
   TOGGLE_LIKE_COMMENT: 'TOGGLE_LIKE_COMMENT',
   TOGGLE_DISLIKE_COMMENT: 'TOGGLE_DISLIKE_COMMENT',
+  TOGGLE_LIKE_DETAIL: 'TOGGLE_LIKE_DETAIL',
+  TOGGLE_DISLIKE_DETAIL: 'TOGGLE_DISLIKE_DETAIL',
 };
 
 function receiveThreadDetailActionCreator(threadDetail) {
@@ -38,6 +40,24 @@ function toggleDislikeCommentActionCreator(commentId, userId) {
     type: ActionType.TOGGLE_DISLIKE_COMMENT,
     payload: {
       commentId,
+      userId,
+    },
+  };
+}
+
+function toggleLikeDetailActionCreator(userId) {
+  return {
+    type: ActionType.TOGGLE_LIKE_DETAIL,
+    payload: {
+      userId,
+    },
+  };
+}
+
+function toggleDislikeDetailActionCreator(userId) {
+  return {
+    type: ActionType.TOGGLE_DISLIKE_DETAIL,
+    payload: {
       userId,
     },
   };
@@ -86,6 +106,36 @@ function asyncToogleDislikeComment(commentId) {
   };
 }
 
+function asyncToogleLikeDetail() {
+  return async (dispatch, getState) => {
+    dispatch(showLoading());
+    const { authUser, threadDetail } = getState();
+    dispatch(toggleLikeDetailActionCreator(authUser.id));
+
+    try {
+      await api.upVoteThread(threadDetail.id);
+    } catch (error) {
+      showError(error.message);
+    }
+    dispatch(hideLoading());
+  };
+}
+
+function asyncToogleDislikeDetail() {
+  return async (dispatch, getState) => {
+    dispatch(showLoading());
+    const { authUser, threadDetail } = getState();
+    dispatch(toggleDislikeDetailActionCreator(authUser.id));
+
+    try {
+      await api.downVoteThread(threadDetail.id);
+    } catch (error) {
+      showError(error.message);
+    }
+    dispatch(hideLoading());
+  };
+}
+
 export {
   ActionType,
   receiveThreadDetailActionCreator,
@@ -93,4 +143,6 @@ export {
   asyncReceiveThreadDetail,
   asyncToogleLikeComment,
   asyncToogleDislikeComment,
+  asyncToogleLikeDetail,
+  asyncToogleDislikeDetail,
 };

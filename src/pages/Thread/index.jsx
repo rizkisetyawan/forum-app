@@ -3,27 +3,25 @@ import { Container } from '@mantine/core';
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
+
 import {
-  asyncToogleLikeThread,
-  asyncToogleDislikeThread,
-} from '../../states/threads/action';
-import { asyncReceiveThreadDetail } from '../../states/threadDetail/action';
+  asyncReceiveThreadDetail,
+  asyncToogleLikeDetail,
+  asyncToogleDislikeDetail,
+} from '../../states/threadDetail/action';
 import { ThreadDetail } from '../../components';
 
 function Thread() {
   const { id } = useParams();
-  const {
-    threadDetail = null,
-    authUser,
-  } = useSelector((states) => states);
+  const { threadDetail = null, authUser } = useSelector((states) => states);
   const dispatch = useDispatch();
 
   const handleLike = (threadId) => {
-    dispatch(asyncToogleLikeThread(threadId));
+    dispatch(asyncToogleLikeDetail(threadId));
   };
 
   const handleDislike = (threadId) => {
-    dispatch(asyncToogleDislikeThread(threadId));
+    dispatch(asyncToogleDislikeDetail(threadId));
   };
 
   useEffect(() => {

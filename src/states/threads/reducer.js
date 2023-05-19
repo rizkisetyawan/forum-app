@@ -1,6 +1,6 @@
 import { ActionType } from './action';
 
-function toggleVote(votes, userId) {
+function addVote(votes, userId) {
   return votes.includes(userId)
     ? votes.filter((id) => id !== userId)
     : votes.concat(userId);
@@ -20,7 +20,7 @@ function threadsReducer(threads = [], action = {}) {
       return threads.map((thread) => (thread.id === action.payload.threadId
         ? {
           ...thread,
-          upVotesBy: toggleVote(thread.upVotesBy, action.payload.userId),
+          upVotesBy: addVote(thread.upVotesBy, action.payload.userId),
           downVotesBy: removeVote(
             thread.downVotesBy,
             action.payload.userId
@@ -31,7 +31,7 @@ function threadsReducer(threads = [], action = {}) {
       return threads.map((thread) => (thread.id === action.payload.threadId
         ? {
           ...thread,
-          downVotesBy: toggleVote(
+          downVotesBy: addVote(
             thread.downVotesBy,
             action.payload.userId
           ),
