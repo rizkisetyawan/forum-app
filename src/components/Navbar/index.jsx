@@ -11,7 +11,6 @@ import {
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Outlet, useNavigate } from 'react-router-dom';
-import { MantineLogo } from '@mantine/ds';
 import NavbarLink from '../NavbarLink';
 import { asyncUnsetAuthUser } from '../../states/authUser/action';
 
@@ -64,12 +63,10 @@ function NavbarComponent() {
         })}
       >
         <Center>
-          {authUser ? (
+          {authUser && (
             <Tooltip label={authUser.name} position="right" color="dark">
               <Avatar src={authUser.avatar} radius="xl" size="md" />
             </Tooltip>
-          ) : (
-            <MantineLogo type="mark" inverted size={30} />
           )}
         </Center>
         <Navbar.Section grow sx={{ display: 'flex', justifyContent: 'center' }}>

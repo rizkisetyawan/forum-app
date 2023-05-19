@@ -25,7 +25,7 @@ function Login() {
     dispatch(asyncSetAuthUser({ email, password }));
   };
 
-  const handleRegister = () => {
+  const handleToPageRegister = () => {
     navigate('/register');
   };
 
@@ -43,7 +43,7 @@ function Login() {
       <Text color="dimmed" size="sm" align="center" mt={5}>
         Do not have an account yet?
         <Space w="sm" />
-        <Anchor size="sm" component="button" onClick={handleRegister}>
+        <Anchor size="sm" component="button" onClick={handleToPageRegister}>
           Create account
         </Anchor>
       </Text>

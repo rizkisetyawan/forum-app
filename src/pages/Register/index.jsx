@@ -10,7 +10,9 @@ import {
   Title,
 } from '@mantine/core';
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { asyncRegisterUser } from '../../states/users/action';
 import { useInput } from '../../hooks';
 
 function Register() {
@@ -18,9 +20,15 @@ function Register() {
   const [email, onEmailChange] = useInput('');
   const [password, onPasswordChange] = useInput('');
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const handleLogin = () => {
+  const handleToPageLogin = () => {
     navigate('/login');
+  };
+
+  const handleRegister = () => {
+    dispatch(asyncRegisterUser({ name, email, password }));
+    handleToPageLogin();
   };
 
   return (
@@ -37,7 +45,7 @@ function Register() {
       <Text color="dimmed" size="sm" align="center" mt={5}>
         Already have an account ?
         <Space w="sm" />
-        <Anchor size="sm" component="button" onClick={handleLogin}>
+        <Anchor size="sm" component="button" onClick={handleToPageLogin}>
           Sign In
         </Anchor>
       </Text>
@@ -66,7 +74,7 @@ function Register() {
           required
           mt="md"
         />
-        <Button fullWidth mt="xl">
+        <Button fullWidth mt="xl" onClick={handleRegister}>
           Register
         </Button>
       </Paper>

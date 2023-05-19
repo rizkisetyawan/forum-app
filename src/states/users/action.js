@@ -1,5 +1,5 @@
 import { hideLoading, showLoading } from 'react-redux-loading-bar';
-import { api, showError } from '../../utils';
+import { api, showError, showInfo } from '../../utils';
 
 const ActionType = {
   RECEIVE_USERS: 'RECEIVE_USERS',
@@ -14,11 +14,12 @@ function receiveUsersActionCreator(users) {
   };
 }
 
-function asyncRegisterUser({ id, name, password }) {
+function asyncRegisterUser(data) {
   return async (dispatch) => {
     dispatch(showLoading());
     try {
-      await api.register({ id, name, password });
+      await api.register(data);
+      showInfo('succesfully create account');
     } catch (error) {
       showError(error.message);
     }
