@@ -92,10 +92,12 @@ function NavbarComponent() {
   ));
 
   const handleLogin = () => {
+    setActive('login');
     navigate('/login');
   };
 
   const handleLogout = () => {
+    setActive('login');
     dispatch(asyncUnsetAuthUser());
   };
 
@@ -121,9 +123,9 @@ function NavbarComponent() {
         <Navbar.Section>
           <Stack justify="center" spacing={0}>
             {authUser ? (
-              <NavbarLink icon={IconLogout} label="Logout" onClick={handleLogout} />
+              <NavbarLink icon={IconLogout} label="Logout" onClick={handleLogout} active={active === 'login'} />
             ) : (
-              <NavbarLink icon={IconLogin} label="Login" onClick={handleLogin} />
+              <NavbarLink icon={IconLogin} label="Login" onClick={handleLogin} active={active === 'login'} />
             )}
           </Stack>
         </Navbar.Section>

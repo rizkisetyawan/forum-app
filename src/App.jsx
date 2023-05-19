@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import { Loading, Navbar } from './components';
 import {
-  Home, Login, Register, Thread
+  Home, Login, Register, Thread, Leaderboards,
 } from './pages';
 import { asyncPreloadProcess } from './states/isPreload/action';
 
@@ -36,6 +36,7 @@ function App() {
           <Route index element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/leaderboards" element={<Leaderboards />} />
           <Route path="/threads/:id" element={<Thread />} />
         </Route>
       </Routes>
