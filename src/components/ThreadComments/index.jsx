@@ -106,7 +106,7 @@ const commentsShape = PropTypes.shape({
     avatar: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
   }).isRequired,
-  createdAt: PropTypes.instanceOf(Date).isRequired,
+  createdAt: PropTypes.string.isRequired,
   content: PropTypes.string.isRequired,
   upVotesBy: PropTypes.arrayOf(PropTypes.string).isRequired,
   downVotesBy: PropTypes.arrayOf(PropTypes.string).isRequired,
