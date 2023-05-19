@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 import {
+  asyncAddComment,
   asyncReceiveThreadDetail,
   asyncToogleLikeDetail,
   asyncToogleDislikeDetail,
@@ -24,6 +25,10 @@ function Thread() {
     dispatch(asyncToogleDislikeDetail(threadId));
   };
 
+  const handleAddComment = (content) => {
+    dispatch(asyncAddComment(content));
+  };
+
   useEffect(() => {
     dispatch(asyncReceiveThreadDetail(id));
   }, [id, dispatch]);
@@ -36,6 +41,7 @@ function Thread() {
     <Container p={32}>
       <ThreadDetail
         {...threadDetail}
+        onAddComment={handleAddComment}
         onLike={handleLike}
         onDislike={handleDislike}
         authUser={authUser?.id}

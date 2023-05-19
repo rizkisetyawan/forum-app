@@ -4,6 +4,7 @@ import { api, showError } from '../../utils';
 const ActionType = {
   RECEIVE_THREAD_DETAIL: 'RECEIVE_THREAD_DETAIL',
   CLEAR_THREAD_DETAIL: 'CLEAR_THREAD_DETAIL',
+  ADD_COMMENT: 'ADD_COMMENT',
   TOGGLE_LIKE_COMMENT: 'TOGGLE_LIKE_COMMENT',
   TOGGLE_DISLIKE_COMMENT: 'TOGGLE_DISLIKE_COMMENT',
   TOGGLE_LIKE_DETAIL: 'TOGGLE_LIKE_DETAIL',
@@ -15,6 +16,15 @@ function receiveThreadDetailActionCreator(threadDetail) {
     type: ActionType.RECEIVE_THREAD_DETAIL,
     payload: {
       threadDetail,
+    },
+  };
+}
+
+function addCommentActionCreator(comment) {
+  return {
+    type: ActionType.ADD_COMMENT,
+    payload: {
+      comment,
     },
   };
 }
@@ -136,11 +146,26 @@ function asyncToogleDislikeDetail() {
   };
 }
 
+function asyncAddComment(content) {
+  return async (dispatch, getState) => {
+    dispatch(showLoading());
+    const { threadDetail } = getState();
+    try {
+      const comment = await api.createComment({ id: threadDetail.id, content });
+      dispatch(addCommentActionCreator(comment));
+    } catch (error) {
+      showError(error.message);
+    }
+    dispatch(hideLoading());
+  };
+}
+
 export {
   ActionType,
   receiveThreadDetailActionCreator,
   clearThreadDetailActionCreator,
   asyncReceiveThreadDetail,
+  asyncAddComment,
   asyncToogleLikeComment,
   asyncToogleDislikeComment,
   asyncToogleLikeDetail,

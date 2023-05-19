@@ -16,6 +16,11 @@ function threadDetailReducer(threadDetail = null, action = {}) {
       return action.payload.threadDetail;
     case ActionType.CLEAR_THREAD_DETAIL:
       return null;
+    case ActionType.ADD_COMMENT:
+      return {
+        ...threadDetail,
+        comments: [action.payload.comment].concat(threadDetail.comments)
+      };
     case ActionType.TOGGLE_LIKE_COMMENT:
       return {
         ...threadDetail,

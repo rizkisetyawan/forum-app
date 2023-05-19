@@ -1,10 +1,12 @@
 import { Button, Flex, Textarea } from '@mantine/core';
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
-function ThreadCommentInput() {
+function ThreadCommentInput({ onAddComment }) {
   const [text, setText] = useState('');
 
   const handleSend = () => {
+    onAddComment(text);
     if (text.trim()) {
       setText('');
     }
@@ -20,7 +22,7 @@ function ThreadCommentInput() {
     <Flex gap={16}>
       <Textarea
         autosize
-        minRows={2}
+        minRows={3}
         value={text}
         sx={{ flex: 1 }}
         onChange={handleTextChange}
@@ -29,5 +31,9 @@ function ThreadCommentInput() {
     </Flex>
   );
 }
+
+ThreadCommentInput.propTypes = {
+  onAddComment: PropTypes.func.isRequired,
+};
 
 export default ThreadCommentInput;

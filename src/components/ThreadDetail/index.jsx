@@ -33,6 +33,7 @@ function ThreadDetail({
   comments,
   onLike,
   onDislike,
+  onAddComment
 }) {
   const navigate = useNavigate();
 
@@ -111,7 +112,7 @@ function ThreadDetail({
           Beri komentar
         </Title>
         { authUser ? (
-          <ThreadCommentInput />
+          <ThreadCommentInput onAddComment={onAddComment} />
         ) : (
           <Group spacing="xs">
             <Anchor component="button" type="button" weight={800} onClick={handleLogin}>Login</Anchor>
@@ -144,13 +145,9 @@ const threadDetailShape = {
 
 ThreadDetail.propTypes = {
   ...threadDetailShape,
-  onLike: PropTypes.func,
-  onDislike: PropTypes.func,
-};
-
-ThreadDetail.defaultProps = {
-  onLike: () => {},
-  onDislike: () => {},
+  onLike: PropTypes.func.isRequired,
+  onDislike: PropTypes.func.isRequired,
+  onAddComment: PropTypes.func.isRequired,
 };
 
 export default ThreadDetail;

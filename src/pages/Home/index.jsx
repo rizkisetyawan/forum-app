@@ -46,7 +46,7 @@ function Home() {
         onLike={handleLike}
         onDislike={handleDislike}
       />
-      <ThreadAdd onAddThread={handleAddThread} />
+      {authUser && <ThreadAdd onAddThread={handleAddThread} />}
     </Container>
   );
 }
