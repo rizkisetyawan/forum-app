@@ -1,4 +1,7 @@
-import { Box, Navbar, Stack } from '@mantine/core';
+import {
+  Avatar,
+  Box, Center, Navbar, Stack, Tooltip
+} from '@mantine/core';
 import {
   IconChartBar,
   IconLogin,
@@ -8,6 +11,7 @@ import {
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Outlet, useNavigate } from 'react-router-dom';
+import { MantineLogo } from '@mantine/ds';
 import NavbarLink from '../NavbarLink';
 import { asyncUnsetAuthUser } from '../../states/authUser/action';
 
@@ -49,8 +53,9 @@ function NavbarComponent() {
       <Navbar
         height="100vh"
         width={{ base: 80 }}
-        p="sm"
+        p="md"
         pos="fixed"
+        zIndex={1}
         sx={(theme) => ({
           backgroundColor: theme.fn.variant({
             variant: 'filled',
@@ -58,7 +63,16 @@ function NavbarComponent() {
           }).background,
         })}
       >
-        <Navbar.Section grow mt={32}>
+        <Center>
+          {authUser ? (
+            <Tooltip label={authUser.name} position="right" color="dark">
+              <Avatar src={authUser.avatar} radius="xl" size="md" />
+            </Tooltip>
+          ) : (
+            <MantineLogo type="mark" inverted size={30} />
+          )}
+        </Center>
+        <Navbar.Section grow sx={{ display: 'flex', justifyContent: 'center' }}>
           <Stack justify="center" spacing={0}>
             {links}
           </Stack>

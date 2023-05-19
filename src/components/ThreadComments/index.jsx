@@ -41,7 +41,7 @@ function ThreadComments({ authUser, comments }) {
       <Title fz={18} order={3} mb={16}>
         {comments.length}
         {' '}
-        Komentar
+        Comments
       </Title>
       {comments.map((comment) => (
         <Flex key={comment.id} gap={12} mb={16}>

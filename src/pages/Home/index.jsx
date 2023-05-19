@@ -39,10 +39,13 @@ function Home() {
     authUser: authUser?.id,
   }));
 
+  const categories = [...new Set(threadList.map((thread) => thread.category))];
+
   return (
     <Container px={32}>
       <ThreadsList
         threads={threadList}
+        categories={categories}
         onLike={handleLike}
         onDislike={handleDislike}
       />

@@ -109,14 +109,14 @@ function ThreadDetail({
       </Group>
       <Box mb={24}>
         <Title fz={18} order={3} mb={8}>
-          Beri komentar
+          Add Comments
         </Title>
         { authUser ? (
           <ThreadCommentInput onAddComment={onAddComment} />
         ) : (
           <Group spacing="xs">
             <Anchor component="button" type="button" weight={800} onClick={handleLogin}>Login</Anchor>
-            <Text>untuk memberi komentar</Text>
+            <Text>to comment</Text>
           </Group>
         )}
       </Box>

@@ -25,7 +25,7 @@ function Leaderboards() {
       <td>{user.name}</td>
       <td>{user.email}</td>
       <td>
-        <Text fz={18} c="blue" fw={700}>
+        <Text fz={18} c="blue.8" fw={700}>
           {score}
         </Text>
       </td>
@@ -35,15 +35,15 @@ function Leaderboards() {
   return (
     <Container px={32}>
       <Title order={2} my={32}>
-        Klasemen Pengguna Aktif
+        Active Users Standings
       </Title>
       <Table fontSize="md">
         <thead>
           <tr>
             <th> </th>
-            <th>Nama</th>
+            <th>Name</th>
             <th>Email</th>
-            <th>Skor</th>
+            <th>Score</th>
           </tr>
         </thead>
         <tbody>{rows}</tbody>

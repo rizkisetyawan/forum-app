@@ -5,6 +5,7 @@ import {
   Button,
   Modal,
   Stack,
+  Text,
   TextInput,
   Textarea,
 } from '@mantine/core';
@@ -28,7 +29,7 @@ function ThreadAdd({ onAddThread }) {
 
   return (
     <>
-      <Modal opened={opened} onClose={close} title="Add New Thread">
+      <Modal opened={opened} onClose={close} title={<Text fz={18} fw={800} c="blue.8" mb={8}>Add New Thread</Text>}>
         <Stack spacing="xs" m={16}>
           <TextInput value={title} onChange={onTitleChange} label="Title" />
           <TextInput

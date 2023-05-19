@@ -27,7 +27,7 @@ function ThreadCommentInput({ onAddComment }) {
         sx={{ flex: 1 }}
         onChange={handleTextChange}
       />
-      <Button onClick={handleSend}>Kirim</Button>
+      <Button onClick={handleSend}>Send</Button>
     </Flex>
   );
 }
