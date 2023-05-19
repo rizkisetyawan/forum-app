@@ -1,9 +1,10 @@
 import { Container } from '@mantine/core';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { ThreadsList } from '../../components';
+import { ThreadAdd, ThreadsList } from '../../components';
 import { asyncPopulateUsersAndThreads } from '../../states/shared/action';
 import {
+  asyncAddThread,
   asyncToogleLikeThread,
   asyncToogleDislikeThread,
 } from '../../states/threads/action';
@@ -28,6 +29,10 @@ function Home() {
     dispatch(asyncToogleDislikeThread(id));
   };
 
+  const handleAddThread = (data) => {
+    dispatch(asyncAddThread(data));
+  };
+
   const threadList = threads.map((thread) => ({
     ...thread,
     user: users.find((user) => user.id === thread.ownerId),
@@ -36,7 +41,12 @@ function Home() {
 
   return (
     <Container px={32}>
-      <ThreadsList threads={threadList} onLike={handleLike} onDislike={handleDislike} />
+      <ThreadsList
+        threads={threadList}
+        onLike={handleLike}
+        onDislike={handleDislike}
+      />
+      <ThreadAdd onAddThread={handleAddThread} />
     </Container>
   );
 }
