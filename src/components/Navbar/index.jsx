@@ -65,7 +65,7 @@ function NavbarComponent() {
         <Center>
           {authUser && (
             <Tooltip label={authUser.name} position="right" color="dark">
-              <Avatar src={authUser.avatar} radius="xl" size="md" />
+              <Avatar src={authUser.avatar} radius="xl" size="md" alt={authUser.email} />
             </Tooltip>
           )}
         </Center>
