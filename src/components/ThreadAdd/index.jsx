@@ -31,25 +31,27 @@ function ThreadAdd({ onAddThread }) {
     <>
       <Modal opened={opened} onClose={close} title={<Text fz={18} fw={800} c="blue.8" mb={8}>Add New Thread</Text>}>
         <Stack spacing="xs" m={16}>
-          <TextInput value={title} onChange={onTitleChange} label="Title" />
+          <TextInput value={title} onChange={onTitleChange} placeholder="title" label="Title" />
           <TextInput
             value={category}
+            placeholder="category"
             onChange={onCategoryChange}
-            label="Category"
           />
           <Textarea
             value={content}
             onChange={onContentChange}
+            placeholder="content"
             label="Content"
             autosize
             minRows={3}
           />
-          <Button size="sm" mt={8} onClick={handleSubmit}>
+          <Button data-testid="add-new-thread" size="sm" mt={8} onClick={handleSubmit}>
             Submit
           </Button>
         </Stack>
       </Modal>
       <ActionIcon
+        data-testid="open-modal-thread"
         color="blue"
         size="xl"
         radius="xl"

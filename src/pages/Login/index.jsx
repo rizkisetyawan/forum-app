@@ -1,28 +1,22 @@
 import {
   Anchor,
-  Button,
   Container,
-  Paper,
-  PasswordInput,
   Space,
   Text,
-  TextInput,
-  Title,
+  Title
 } from '@mantine/core';
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { useInput } from '../../hooks';
+import { LoginInput } from '../../components';
 import { asyncSetAuthUser } from '../../states/authUser/action';
 
 function Login() {
-  const [email, onEmailChange] = useInput('');
-  const [password, onPasswordChange] = useInput('');
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const handleLogin = () => {
-    dispatch(asyncSetAuthUser({ email, password }));
+  const handleLogin = (body) => {
+    dispatch(asyncSetAuthUser(body));
   };
 
   const handleToPageRegister = () => {
@@ -47,27 +41,7 @@ function Login() {
           Create account
         </Anchor>
       </Text>
-
-      <Paper withBorder shadow="md" p={30} mt={30} radius="md">
-        <TextInput
-          label="Email"
-          placeholder="Your email"
-          value={email}
-          onChange={onEmailChange}
-          required
-        />
-        <PasswordInput
-          label="Password"
-          placeholder="Your password"
-          value={password}
-          onChange={onPasswordChange}
-          required
-          mt="md"
-        />
-        <Button fullWidth mt="xl" onClick={handleLogin}>
-          Sign in
-        </Button>
-      </Paper>
+      <LoginInput onLogin={handleLogin} />
     </Container>
   );
 }

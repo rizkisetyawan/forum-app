@@ -22,12 +22,13 @@ function ThreadCommentInput({ onAddComment }) {
     <Flex gap={16}>
       <Textarea
         autosize
+        placeholder="your comment"
         minRows={3}
         value={text}
         sx={{ flex: 1 }}
         onChange={handleTextChange}
       />
-      <Button onClick={handleSend}>Send</Button>
+      <Button onClick={handleSend} data-testid="add-new-comment">Send</Button>
     </Flex>
   );
 }
