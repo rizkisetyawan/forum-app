@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import { Loading, Navbar } from './components';
 import {
-  Home, Login, Register, Thread, Leaderboards,
+  Home, Login, Register, Thread, Leaderboards
 } from './pages';
 import { asyncPreloadProcess } from './states/isPreload/action';
 

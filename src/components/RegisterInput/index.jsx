@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { useInput } from '../../hooks';
 
-function RegisterInput({ onRegister }) {
+function RegisterInput({ onRegister, variantTextInput, variantButton }) {
   const [name, onNameChange] = useInput('');
   const [email, onEmailChange] = useInput('');
   const [password, onPasswordChange] = useInput('');
@@ -15,12 +15,13 @@ function RegisterInput({ onRegister }) {
   };
 
   return (
-    <Paper withBorder shadow="md" p={30} mt={30} radius="md">
+    <Paper withBorder maw={380} shadow="md" p={30} mt={30} radius="md">
       <TextInput
         label="Name"
         placeholder="Your Name"
         value={name}
         onChange={onNameChange}
+        variant={variantTextInput}
         required
       />
       <TextInput
@@ -28,6 +29,7 @@ function RegisterInput({ onRegister }) {
         placeholder="Your Email"
         value={email}
         onChange={onEmailChange}
+        variant={variantTextInput}
         required
         mt="md"
       />
@@ -36,10 +38,11 @@ function RegisterInput({ onRegister }) {
         placeholder="Your Password"
         value={password}
         onChange={onPasswordChange}
+        variant={variantTextInput}
         required
         mt="md"
       />
-      <Button fullWidth mt="xl" onClick={handleSubmit}>
+      <Button variant={variantButton} fullWidth mt="xl" onClick={handleSubmit}>
         Register
       </Button>
     </Paper>
@@ -47,7 +50,14 @@ function RegisterInput({ onRegister }) {
 }
 
 RegisterInput.propTypes = {
-  onRegister: PropTypes.func.isRequired
+  variantTextInput: PropTypes.oneOf(['default', 'filled', 'unstyled']),
+  variantButton: PropTypes.oneOf(['filled', 'light', 'outline', 'default', 'subtle']),
+  onRegister: PropTypes.func.isRequired,
+};
+
+RegisterInput.defaultProps = {
+  variantButton: 'filled',
+  variantTextInput: 'default'
 };
 
 export default RegisterInput;
