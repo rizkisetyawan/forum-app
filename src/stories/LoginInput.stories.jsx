@@ -1,21 +1,23 @@
+/* eslint-disable storybook/story-exports */
 import LoginInput from '../components/LoginInput';
 
 const stories = {
   title: 'LoginInput',
-  component: LoginInput
+  component: LoginInput,
+  tags: ['autodocs']
 };
 
 function TemplateStory(args) {
   return <LoginInput {...args} />;
 }
 
-const ComponentProps = TemplateStory.bind({});
-ComponentProps.args = {
+const Default = TemplateStory.bind({});
+Default.args = {
   onLogin: () => {},
   variantTextInput: 'default',
-  variantButton: 'filled',
+  variantButton: 'filled'
 };
 
-export { ComponentProps };
+export { Default };
 
 export default stories;

@@ -40,11 +40,11 @@ function LoginInput({ variantTextInput, variantButton, onLogin }) {
 }
 
 LoginInput.propTypes = {
-  /** The title of the announcement */
+  /** The variant of the TextInput */
   variantTextInput: PropTypes.oneOf(['default', 'filled', 'unstyled']),
-  /** The title of the announcement */
+  /** The variant of the Button Sign In */
   variantButton: PropTypes.oneOf(['filled', 'light', 'outline', 'default', 'subtle']),
-  /** The title of the announcement */
+  /** handle to be executed when the sign in button is clicked */
   onLogin: PropTypes.func.isRequired,
 };
 

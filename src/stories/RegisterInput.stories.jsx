@@ -2,20 +2,21 @@ import RegisterInput from '../components/RegisterInput';
 
 const stories = {
   title: 'RegisterInput',
-  component: RegisterInput
+  component: RegisterInput,
+  tags: ['autodocs']
 };
 
 function TemplateStory(args) {
   return <RegisterInput {...args} />;
 }
 
-const ComponentProps = TemplateStory.bind({});
-ComponentProps.args = {
+const Default = TemplateStory.bind({});
+Default.args = {
   onRegister: () => {},
   variantTextInput: 'default',
   variantButton: 'filled',
 };
 
-export { ComponentProps };
+export { Default };
 
 export default stories;
