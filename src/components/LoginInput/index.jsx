@@ -9,10 +9,6 @@ function LoginInput({ variantTextInput, variantButton, onLogin }) {
   const [email, onEmailChange] = useInput('');
   const [password, onPasswordChange] = useInput('');
 
-  const handleSignIn = () => {
-    onLogin({ email, password });
-  };
-
   return (
     <Paper maw={380} withBorder shadow="md" p={30} mt={30} radius="md">
       <TextInput
