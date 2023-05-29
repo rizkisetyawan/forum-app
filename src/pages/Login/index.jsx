@@ -35,7 +35,7 @@ function Login() {
         Forum App
       </Title>
       <Text color="dimmed" size="sm" align="center" mt={5}>
-        Do not have an account yet?
+        Don`&#39;`t have an account yet?
         <Space w="sm" />
         <Anchor size="sm" component="button" onClick={handleToPageRegister}>
           Create account
